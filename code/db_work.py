@@ -2,7 +2,7 @@ import sqlite3
 
 
 def add_to_db(log, pswrd):
-    con = sqlite3.connect("pygame_db.db")
+    con = sqlite3.connect("../pygame_db.db")
     cur = con.cursor()
     cur.execute("""INSERT INTO players(login, password, record)
                    VALUES(?, ?, 0)""", (log, pswrd))
@@ -10,7 +10,7 @@ def add_to_db(log, pswrd):
 
 
 def from_db():
-    con = sqlite3.connect("pygame_db.db")
+    con = sqlite3.connect("../pygame_db.db")
     cur = con.cursor()
     res = cur.execute("""SELECT * FROM players
                          ORDER BY record DESC""").fetchall()
@@ -18,9 +18,8 @@ def from_db():
 
 
 def unique_nick(log):
-    con = sqlite3.connect("pygame_db.db")
+    con = sqlite3.connect("../pygame_db.db")
     cur = con.cursor()
     res = cur.execute("""SELECT login FROM players""").fetchall()
     res = [elem[0] for elem in res]
-    print(log, res)
     return log not in res

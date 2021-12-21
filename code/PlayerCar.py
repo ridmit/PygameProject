@@ -1,5 +1,3 @@
-import pygame
-
 from Car import Car
 
 
