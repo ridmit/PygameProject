@@ -5,6 +5,7 @@ class Tile(pygame.sprite.Sprite):
     size = 40
     image = pygame.image.load("../images/tile.jpg")
     image = pygame.transform.scale(image, (size, size))
+    cnt = 0
 
     def __init__(self, x, y, fps, h, *groups):
         super(Tile, self).__init__(*groups)
@@ -27,3 +28,4 @@ class Tile(pygame.sprite.Sprite):
             self.kill()
             Tile(self.x, -self.tile_size + self.real_y - self.h, self.fps,
                  self.h, *groups)
+            Tile.cnt += 1

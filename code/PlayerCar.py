@@ -2,9 +2,10 @@ import pygame
 
 
 class PlayerCar(pygame.sprite.Sprite):
-    size = 80
+    width = 50
     image = pygame.image.load("../images/player_car.png")
-    image = pygame.transform.scale(image, (size, size))
+    image = pygame.transform.scale(image, (
+    width, image.get_height() * width // image.get_width()))
 
     def __init__(self, h, *args):
         super(PlayerCar, self).__init__(*args)
@@ -21,4 +22,3 @@ class PlayerCar(pygame.sprite.Sprite):
         for elem in enemy_sprites:
             if pygame.sprite.collide_mask(self, elem):
                 print("GameOver")
-
