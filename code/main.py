@@ -11,9 +11,9 @@ pygame.display.set_icon(pygame.image.load("../images/icon.png"))
 
 authorization = AuthorizationScene()  # Там вызывается RegistrationScene
 menu = MenuScene()  # В меню вызывается RulesScene
-game = GameScene()
 
 authorization.cycle()
+game = GameScene(authorization.login)
 if authorization.res:
     menu.cycle()
     if menu.res:

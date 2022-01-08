@@ -12,9 +12,10 @@ class MenuScene:
         self.init_ui()
 
         self.image = pygame.image.load("../images/road.png")
-        self.image = pygame.transform.scale(self.image, self.size)
+        self.image = pygame.transform.scale(self.image, (520, 520))
+
         font_50 = pygame.font.Font(None, 50)
-        self.title = font_50.render("Final Destination", True, "purple")
+        self.title = font_50.render("Final Destination", True, (0, 0, 128))
 
         self.running = True
         self.clock = pygame.time.Clock()
@@ -72,7 +73,6 @@ class MenuScene:
                     self.screen = pygame.display.set_mode(self.size)
 
     def draw(self):  # Нанесение надписей
-        self.screen.fill("green")
-        self.screen.blit(self.image, (0, 0))
+        self.screen.blit(self.image, (-10, -10))
         self.screen.blit(self.title,
                          ((self.w - self.title.get_width()) // 2, 30))

@@ -8,6 +8,8 @@ from db_work import from_db
 class AuthorizationScene:
     def __init__(self):
         self.size = self.w, self.h = 500, 300
+        self.image = pygame.image.load("../images/bgr_authorization.jpg")
+        self.image = pygame.transform.scale(self.image, (self.w, self.h))
 
         self.init_ui()
         self.registration = RegistrationScene()
@@ -106,7 +108,7 @@ class AuthorizationScene:
                     self.status = self.font_35.render("", True, "red")
 
     def draw(self):  # Нанесение надписей
-        self.screen.fill("green")
+        self.screen.blit(self.image, (0, 0))
         self.screen.blit(self.title,
                          ((self.w - self.title.get_width()) // 2, self.dist))
         self.screen.blit(

@@ -8,11 +8,12 @@ from db_work import unique_nick, add_to_db
 class RegistrationScene:
     def __init__(self):
         self.size = self.w, self.h = 500, 260
+        self.image = pygame.image.load("../images/bgr_reg.jpg")
+        self.image = pygame.transform.scale(self.image, (self.w, self.h))
 
         self.init_ui()
         self.clock = pygame.time.Clock()
         self.fps = 60
-
 
     def init_ui(self):
         self.manager = pygame_gui.UIManager(self.size)
@@ -104,11 +105,11 @@ class RegistrationScene:
                             f"Username {self.log_text.text} is not available",
                             True, "red")
                     else:
-                        add_to_db(login, password1)
+                        add_to_db(login, password1, 0)
                         self.running = False
 
     def draw(self):  # Нанесение надписей
-        self.screen.fill("purple")
+        self.screen.blit(self.image, (0, 0))
         self.screen.blit(self.title, ((self.w - self.title.get_width()) // 2,
                                       self.dist))
         self.screen.blit(self.log_label, (
