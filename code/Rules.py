@@ -6,7 +6,7 @@ from terminate import terminate
 
 class RulesScene:
     def __init__(self):
-        self.size = self.w, self.h = 800, 900
+        self.size = self.w, self.h = 800, 920
 
         self.init_ui()
 
@@ -38,7 +38,8 @@ class RulesScene:
             "../images/boom_icon.png",
             "../images/x0.5.png",
             "../images/x2.png",
-            "../images/x3.png"]
+            "../images/x3.png",
+            "../images/question.png"]
 
         self.bns_descriptions = [
             "Ускорение по вертикали на 15 секунд",
@@ -50,7 +51,8 @@ class RulesScene:
             "Взрыв всех уже появившихся машин-препятствий",
             "Уменьшение получаемых очков в 2 раза на 15 секунд",
             "Увеличение получаемых очков в 2 раза на 15 секунд",
-            "Увеличение получаемых очков в 3 раза на 15 секунд"]
+            "Увеличение получаемых очков в 3 раза на 15 секунд",
+            "Случайный бонус, один из активных (щит, клякса, взрыв)"]
 
     def init_ui(self):
         self.manager = pygame_gui.UIManager(self.size)

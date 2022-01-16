@@ -19,6 +19,12 @@ class Bonus(pygame.sprite.Sprite):
         if self.real_y >= self.h:
             self.kill()
 
+    def new_img(self, x, y):
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = x, y
+        self.real_y = y
+        self.mask = pygame.mask.from_surface(self.image)
+
 
 class SpeedYBonus(Bonus):
     image = pygame.image.load("../images/boost_y.png")
@@ -27,12 +33,7 @@ class SpeedYBonus(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(SpeedYBonus, self).__init__(fps, h, *groups)
         self.image = SpeedYBonus.image
-        self.rect = self.image.get_rect()
-
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(SpeedYBonus, self).new_img(x, y)
 
 
 class SlowYBonus(Bonus):
@@ -42,12 +43,7 @@ class SlowYBonus(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(SlowYBonus, self).__init__(fps, h, *groups)
         self.image = SlowYBonus.image
-        self.rect = self.image.get_rect()
-
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(SlowYBonus, self).new_img(x, y)
 
 
 class SpeedXBonus(Bonus):
@@ -57,12 +53,7 @@ class SpeedXBonus(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(SpeedXBonus, self).__init__(fps, h, *groups)
         self.image = SpeedXBonus.image
-        self.rect = self.image.get_rect()
-
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(SpeedXBonus, self).new_img(x, y)
 
 
 class SlowXBonus(Bonus):
@@ -72,12 +63,7 @@ class SlowXBonus(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(SlowXBonus, self).__init__(fps, h, *groups)
         self.image = SlowXBonus.image
-        self.rect = self.image.get_rect()
-
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(SlowXBonus, self).new_img(x, y)
 
 
 class Blob(Bonus):
@@ -87,12 +73,7 @@ class Blob(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(Blob, self).__init__(fps, h, *groups)
         self.image = Blob.image
-        self.rect = self.image.get_rect()
-
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(Blob, self).new_img(x, y)
 
 
 class XHalf(Bonus):
@@ -102,11 +83,7 @@ class XHalf(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(XHalf, self).__init__(fps, h, *groups)
         self.image = XHalf.image
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(XHalf, self).new_img(x, y)
 
 
 class X2(Bonus):
@@ -116,11 +93,7 @@ class X2(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(X2, self).__init__(fps, h, *groups)
         self.image = X2.image
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(X2, self).new_img(x, y)
 
 
 class X3(Bonus):
@@ -130,11 +103,7 @@ class X3(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(X3, self).__init__(fps, h, *groups)
         self.image = X3.image
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(X3, self).new_img(x, y)
 
 
 class Shield(Bonus):
@@ -144,11 +113,7 @@ class Shield(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(Shield, self).__init__(fps, h, *groups)
         self.image = Shield.image
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-
-        self.mask = pygame.mask.from_surface(self.image)
+        super(Shield, self).new_img(x, y)
 
 
 class Boom(Bonus):
@@ -158,7 +123,14 @@ class Boom(Bonus):
     def __init__(self, x, y, fps, h, *groups):
         super(Boom, self).__init__(fps, h, *groups)
         self.image = Boom.image
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = x, y
-        self.real_y = y
-        self.mask = pygame.mask.from_surface(self.image)
+        super(Boom, self).new_img(x, y)
+
+
+class Question(Bonus):
+    image = pygame.image.load("../images/question.png")
+    image = pygame.transform.scale(image, (Bonus.side, Bonus.side))
+
+    def __init__(self, x, y, fps, h, *groups):
+        super(Question, self).__init__(fps, h, *groups)
+        self.image = Question.image
+        super(Question, self).new_img(x, y)

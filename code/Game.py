@@ -8,8 +8,8 @@ from Tile import Tile
 from EnemyCar import EnemyCar
 from Coin import Coin
 from Final import FinalScene
-from Bonuses import SpeedYBonus, SlowYBonus, SpeedXBonus, SlowXBonus, Blob, \
-    X2, X3, XHalf, Shield, Boom
+from Bonuses import SpeedYBonus, SlowYBonus, SpeedXBonus, SlowXBonus, Blob
+from Bonuses import X2, X3, XHalf, Shield, Boom, Question
 
 
 class GameScene:
@@ -62,6 +62,7 @@ class GameScene:
 
         self.shields_sprites = pygame.sprite.Group()
         self.boom_sprites = pygame.sprite.Group()
+        self.qstn_sprites = pygame.sprite.Group()
 
         self.bonuses = {
             SpeedYBonus: self.speed_y_bns_sprites,
@@ -73,7 +74,8 @@ class GameScene:
             X3: self.x3_sprites,
             XHalf: self.xhalf_sprites,
             Shield: self.shields_sprites,
-            Boom: self.boom_sprites
+            Boom: self.boom_sprites,
+            Question: self.qstn_sprites
         }
 
         self.my_car = PlayerCar(self.w, self.h, self.player_sprite)
@@ -166,7 +168,6 @@ class GameScene:
         if time.time() - self.car_spawn >= \
                 -7 / 18500 * self.speed + 434 / 925 + uniform(-0.08, 0.1):
             self.car_spawn = time.time()
-            data = EnemyCar.data
             possible_col = [i for i, elem in enumerate(EnemyCar.data)
                             if not elem]
             if possible_col:
@@ -201,7 +202,8 @@ class GameScene:
             cnt = 2 if random() >= 0.8 else 1
             for _ in range(cnt):
                 possible_bns = [SpeedYBonus, SlowYBonus, SpeedXBonus,
-                                SlowXBonus, Blob, X2, X3, XHalf, Shield, Boom]
+                                SlowXBonus, Blob, X2, X3, XHalf, Shield,
+                                Boom, Question]
                 bonus = choice(possible_bns)
                 while self.prev == bonus:
                     bonus = choice(possible_bns)
@@ -213,6 +215,15 @@ class GameScene:
                         bonus, self.all_bns_sprites):
                     if not pygame.sprite.spritecollideany(
                             bonus, self.coin_sprites):
+                        """
+                        Если попался случайный бонус, то рандомно выбираем
+                        один из активных бонусов(тех, что легко опознать).
+                        """
+
+                        if group == self.qstn_sprites:
+                            self.bonuses[choice([Blob,
+                                                 Boom,
+                                                 Shield])].add(bonus)
                         self.all_bns_sprites.add(bonus)
 
     def bonuses_check(self):
