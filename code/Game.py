@@ -134,7 +134,7 @@ class GameScene:
             self.keys[event.key] = False
 
     def update_sprites(self):
-        self.coin_sprites.update(self.speed, self.k, self.player_sprite)
+        self.coin_sprites.update(self.speed, self.k, self.my_car)
         self.enemy_sprites.update(self.speed)
         self.player_sprite.update(self.final_window,
                                   self.points,
@@ -171,11 +171,9 @@ class GameScene:
                             if not elem]
             if possible_col:
                 col = choice(possible_col)
-                car = EnemyCar(col, self.h, 150 * uniform(0.5, 1.7), self.fps)
-                if not pygame.sprite.spritecollideany(
-                        car, self.enemy_sprites):
-                    self.enemy_sprites.add(car)
-                    EnemyCar.data[col] = True
+                EnemyCar(col, self.h, 150 * uniform(0.5, 1.7),
+                         self.fps, self.enemy_sprites)
+                EnemyCar.data[col] = True
 
     def spawn_coin(self):
         if time.time() - self.coin_spawn >= \
@@ -213,7 +211,9 @@ class GameScene:
                 bonus = bonus(x, y, self.fps, self.h, group)
                 if not pygame.sprite.spritecollideany(
                         bonus, self.all_bns_sprites):
-                    self.all_bns_sprites.add(bonus)
+                    if not pygame.sprite.spritecollideany(
+                            bonus, self.coin_sprites):
+                        self.all_bns_sprites.add(bonus)
 
     def bonuses_check(self):
         now = time.time()

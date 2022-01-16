@@ -1,29 +1,35 @@
 import pygame
 
+from AnimatedSprite import AnimatedSprite
 
-class Coin(pygame.sprite.Sprite):
+
+class Coin(AnimatedSprite):
     cnt = 0
-    side = 40
-    image = pygame.image.load("../images/coin.png")
-    image = pygame.transform.scale(image, (side, side))
+
+    sheet = pygame.image.load("../images/coin_sheet6x1.png")
+    sheet = pygame.transform.scale(sheet, (
+        sheet.get_width() // 3, sheet.get_height() // 3))
+    cols, rows = 6, 1
 
     def __init__(self, x, y, fps, h, *groups):
-        super(Coin, self).__init__(*groups)
-        self.side = Coin.side
+        super(Coin, self).__init__(Coin.sheet, Coin.cols, Coin.rows,
+                                   True, *groups)
         self.fps = fps
         self.h = h
 
-        self.image = Coin.image
         self.rect = self.image.get_rect()
 
         self.rect.x, self.rect.y = x, y
         self.real_y = y
+        self.mask = pygame.mask.from_surface(self.image)
 
-    def update(self, speed, k, player_sprite):
+    def update(self, speed, k, player):
         self.real_y += speed / self.fps
         self.rect.y = self.real_y // 1
         if self.real_y >= self.h:
             self.kill()
-        if pygame.sprite.spritecollideany(self, player_sprite):
+        if pygame.sprite.collide_mask(self, player):
             Coin.cnt += k
             self.kill()
+        super(Coin, self).update(self.fps, 12)
+        self.mask = pygame.mask.from_surface(self.image)
