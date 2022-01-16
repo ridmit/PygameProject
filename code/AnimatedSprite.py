@@ -2,14 +2,14 @@ import pygame
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
-    def __init__(self, sheet, columns, rows, x, y, *groups):
+    def __init__(self, sheet, columns, rows, loop, *groups):
         super().__init__(*groups)
         self.frames = []
         self.cut_sheet(sheet, columns, rows)
+        self.loop = loop
         self.cur_frame = 0
         self.image = self.frames[self.cur_frame]
-        self.rect = self.rect.move(x, y)
-        self.cnt = -1
+        self.cnt = 0
 
     def cut_sheet(self, sheet, columns, rows):
         self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
@@ -20,10 +20,13 @@ class AnimatedSprite(pygame.sprite.Sprite):
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def update(self, fps, cnt):
+    def update(self, fps, frequency):
         self.cnt += 1
-        if self.cnt % 8 == 0:
-            self.cur_frame += 1
-            self.image = self.frames[self.cur_frame]
-            if self.cur_frame + 1 == len(self.frames):
-                self.kill()
+        if self.cnt % frequency == 0:  # Частота смены кадров
+            if self.loop:  # Анимированный спрайт зациклен
+                self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+            else:
+                self.cur_frame += 1
+                if self.cur_frame + 1 == len(self.frames):
+                    self.kill()
+        self.image = self.frames[self.cur_frame]

@@ -3,7 +3,7 @@ import pygame_gui
 
 from Leaderboard import LeaderboardScene
 from db_work import update_points
-
+from terminate import terminate
 
 class FinalScene:
     def __init__(self, login):
@@ -52,7 +52,7 @@ class FinalScene:
 
     def handle_event(self, event):
         if event.type == pygame.QUIT:
-            self.running = False
+            terminate()
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.restart_btn:

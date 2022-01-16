@@ -169,12 +169,9 @@ class GameScene:
             data = EnemyCar.data
             possible_col = [i for i, elem in enumerate(EnemyCar.data)
                             if not elem]
-            if False in EnemyCar.data:
+            if possible_col:
                 col = choice(possible_col)
                 car = EnemyCar(col, self.h, 150 * uniform(0.5, 1.7), self.fps)
-                while data[col]:  # На одной линии не больше 1 машины
-                    car = EnemyCar(col, self.h, 150 * uniform(0.5, 1.7),
-                                   self.fps)
                 if not pygame.sprite.spritecollideany(
                         car, self.enemy_sprites):
                     self.enemy_sprites.add(car)

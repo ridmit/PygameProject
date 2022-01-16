@@ -23,7 +23,7 @@ class PlayerCar(pygame.sprite.Sprite):
         self.image = PlayerCar.image
         self.rect = self.image.get_rect()
         self.rect.x = (w - PlayerCar.width) // 2
-        self.rect.y = h - self.rect.height
+        self.rect.y = h - self.rect.height - 10
         self.size = self.image.get_size()
         self.mask = pygame.mask.from_surface(self.image)
 
