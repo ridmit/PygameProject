@@ -32,7 +32,9 @@ class GameScene:
 
         self.keys = {
             pygame.K_a: False,
-            pygame.K_d: False
+            pygame.K_d: False,
+            pygame.K_LEFT: False,
+            pygame.K_RIGHT: False
         }
         self.blob.set_alpha(0)
         self.shield = False
@@ -108,10 +110,10 @@ class GameScene:
             self.spawn_bonus()
             self.spawn_coin()
 
-            if self.keys[pygame.K_d]:
+            if self.keys[pygame.K_d] or self.keys[pygame.K_RIGHT]:
                 self.my_car.rect.x = min(self.my_car.rect.x + self.speed_x,
                                          self.w - self.my_car.rect.width)
-            if self.keys[pygame.K_a]:
+            if self.keys[pygame.K_a] or self.keys[pygame.K_LEFT]:
                 self.my_car.rect.x = max(self.my_car.rect.x - self.speed_x, 0)
 
             self.points = int(Tile.cnt // 2 + Coin.cnt * 100)

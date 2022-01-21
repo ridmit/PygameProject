@@ -5,6 +5,7 @@ from Leaderboard import LeaderboardScene
 from db_work import update_points
 from terminate import terminate
 
+
 class FinalScene:
     def __init__(self, login):
         self.size = self.w, self.h = 800, 1000
